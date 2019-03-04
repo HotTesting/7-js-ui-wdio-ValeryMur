@@ -15,8 +15,8 @@ describe("Items search", function() {
     expect(browser.getUrl()).to.equal(
       "http://ip-5236.sunline.net.ua:38015/search?query=duck"
     );
-    let elements = [$$("#box-search-results .products.row.half-gutter>div")];
-    expect(elements.length, "more than one duck").to.have.lengthOf.above(1);
+    let elements = $$("#box-search-results .products.row.half-gutter>div").length;
+    expect(elements, "more than one duck").to.be.above(1);
   });
 
   it("should redirect to item page in case only one result matches", function() {
@@ -26,8 +26,8 @@ describe("Items search", function() {
     expect(browser.getUrl()).to.equal(
       "http://ip-5236.sunline.net.ua:38015/rubber-ducks-c-1/blue-duck-p-4"
     );
-    let element = [$$("#box-product.box")];
-    expect(element.length, "one duck").to.have.lengthOf(1);
+    let element = $$("#box-product.box").length;
+    expect(element, "one duck").to.equal(1);
   });
 
   it("should redirect to 'no matching results' in case no items matched", function() {
@@ -36,8 +36,9 @@ describe("Items search", function() {
     browser.pause(1500);
     const text = $("#box-search-results em").getText();
     expect(text).to.contain("No matching results");
+    expect(browser.getUrl()).to.contains("/search?query=test");
   });
-  expect(browser.getUrl()).to.contains("/search?query=test");
+  
 });
 
 afterEach(function() {
@@ -64,22 +65,23 @@ describe("Search results sorting", function() {
     );
 
     let ducks = $$("#box-search-results .products.row.half-gutter");
-    let duckPrice; //create array with price
-    for (let value of ducks) {
+    let duckPrice: number[]; //create array with price
+    /*for (let value of ducks) {
       let rowPrice = parseInt(value.getAttribute("data-price"));
       duckPrice = rowPrice;
-    }
-
-    /*for (var i = 0; i<ducks.length; i++) {
+    }*/
+   
+    for (var i = 0; i<ducks.length; i++) {
       let rowPrice = parseInt(ducks[i].getAttribute("data-price"));
       duckPrice[i]=rowPrice;
-    }*/
+    }
     function compareNumeric(a, b) {
       if (a > b) return 1;
       if (a < b) return -1;
       if (a == b) return 0;
     }
     let sortPrice = duckPrice.slice().sort(compareNumeric); //create sorted array with price
+    
     expect(duckPrice).to.deep.equal(sortPrice);
   });
 
@@ -91,7 +93,7 @@ describe("Search results sorting", function() {
     $('a.btn.btn-default[href*="sort=name"').click;
     let names = $$("#box-search-results .products.row.half-gutter");
     let duckName = names.map(
-      name => name.getAttribute("data-name").toLowerCase
+      name => name.getAttribute("data-name")   //.toLowerCase()
     ); //create array with name
     let sortName = duckName.slice().sort(); //create sorted array
     expect(duckName).to.deep.equal(sortName);
@@ -105,6 +107,7 @@ describe("Search results sorting", function() {
   describe("Contact us form", function() {
     it("must send messages to shop administration", function() {
       browser.url("/customer-service-s-0");
+      browser.pause(1500);
       const contForm = 'form[name="contact_form"]';
       const contactForm = {
         name: $(contForm).$('input.form-control[name="name"]'),
