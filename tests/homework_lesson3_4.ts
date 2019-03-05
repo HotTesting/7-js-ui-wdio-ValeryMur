@@ -12,8 +12,8 @@ describe("Items search", function() {
     $(searchField).setValue("duck");
     $(searchField).addValue("Enter");
     browser.pause(1500);
-    expect(browser.getUrl()).to.equal(
-      "http://ip-5236.sunline.net.ua:38015/search?query=duck"
+    expect(browser.getUrl()).to.contain(
+      "/search?query=duck"
     );
     let elements = $$("#box-search-results .products.row.half-gutter>div").length;
     expect(elements, "more than one duck").to.be.above(1);
@@ -23,8 +23,8 @@ describe("Items search", function() {
     $(searchField).setValue("blue");
     $(searchField).addValue("Enter");
     browser.pause(1500);
-    expect(browser.getUrl()).to.equal(
-      "http://ip-5236.sunline.net.ua:38015/rubber-ducks-c-1/blue-duck-p-4"
+    expect(browser.getUrl()).to.contain(
+      "/rubber-ducks-c-1/blue-duck-p-4"
     );
     let element = $$("#box-product.box").length;
     expect(element, "one duck").to.equal(1);
@@ -58,14 +58,14 @@ describe("Search results sorting", function() {
     $(searchField).addValue("Enter");
     expect(browser.getUrl()).contain("search?query=duck");
     //sort
-    $('a.btn.btn-default[href*="sort=price"').click;
+    $('a.btn.btn-default[href*="sort=price"').click();
     //consil log not a part of test, only interesting to see work of mathod 'values'
     console.log(
       $$("#box-search-results .products.row.half-gutter [data-price]").values
     );
 
     let ducks = $$("#box-search-results .products.row.half-gutter");
-    let duckPrice: number[]; //create array with price
+    let duckPrice: number[] = []; //create array with price
     /*for (let value of ducks) {
       let rowPrice = parseInt(value.getAttribute("data-price"));
       duckPrice = rowPrice;
@@ -90,7 +90,7 @@ describe("Search results sorting", function() {
     $(searchField).addValue("Enter");
     expect(browser.getUrl()).contain("search?query=duck");
     //sort
-    $('a.btn.btn-default[href*="sort=name"').click;
+    $('a.btn.btn-default[href*="sort=name"').click();
     let names = $$("#box-search-results .products.row.half-gutter");
     let duckName = names.map(
       name => name.getAttribute("data-name")   //.toLowerCase()
