@@ -2,7 +2,7 @@ import * as faker from "faker";
 import { expect } from "chai";
 
 // Each implemented test gives you 15 points (max total - 45)
-describe("Items search", function() {
+describe.skip("Items search", function() {
   beforeEach(function() {
     browser.url("http://ip-5236.sunline.net.ua:38015/");
     browser.pause(1500);
@@ -46,7 +46,7 @@ afterEach(function() {
 });
 
 // Each implemented test gives you 20 points (max total - 40)
-describe("Search results sorting", function() {
+describe.skip("Search results sorting", function() {
   beforeEach(function() {
     browser.url("http://ip-5236.sunline.net.ua:38015/");
   });
@@ -104,7 +104,7 @@ describe("Search results sorting", function() {
   });
 
   // BONUS LEVEL - this test gives you 15 points
-  describe("Contact us form", function() {
+  describe.skip("Contact us form", function() {
     it("must send messages to shop administration", function() {
       browser.url("/customer-service-s-0");
       browser.pause(1500);
