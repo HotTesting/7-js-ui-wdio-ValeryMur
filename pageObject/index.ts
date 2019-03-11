@@ -1,1 +1,0 @@
-export { BasePO } from "./fragments/base";
