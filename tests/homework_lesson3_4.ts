@@ -8,6 +8,8 @@ describe("Items search", function() {
     browser.pause(1500);
   });
   const searchField = '[name="query"]';
+
+  // 13 - asserting hardcoded domain
   it("should show results in case multiple items matches", function() {
     $(searchField).setValue("duck");
     $(searchField).addValue("Enter");
@@ -19,6 +21,7 @@ describe("Items search", function() {
     expect(elements, "more than one duck").to.be.above(1);
   });
 
+  // 13 - asserting hardcoded domain
   it("should redirect to item page in case only one result matches", function() {
     $(searchField).setValue("blue");
     $(searchField).addValue("Enter");
@@ -30,6 +33,7 @@ describe("Items search", function() {
     expect(element, "one duck").to.equal(1);
   });
 
+  // 15
   it("should redirect to 'no matching results' in case no items matched", function() {
     $('[name="query"]').setValue("test");
     $('[name="query"]').addValue("Enter");
@@ -41,6 +45,7 @@ describe("Items search", function() {
   
 });
 
+// TODO: duplicated postconditions
 afterEach(function() {
   browser.deleteAllCookies();
 });
@@ -53,6 +58,7 @@ describe("Search results sorting", function() {
 
   const searchField = '[name="query"]';
 
+  // 10 - does not work, but logic is correct
   it("correctly arranges items when using 'by price' sorting", function() {
     $(searchField).setValue("duck");
     $(searchField).addValue("Enter");
@@ -85,6 +91,7 @@ describe("Search results sorting", function() {
     expect(duckPrice).to.deep.equal(sortPrice);
   });
 
+  // 17 - incorrect usage of afterEach
   it("correctly arranges items when using 'by name' sorting", function() {
     $(searchField).setValue("duck");
     $(searchField).addValue("Enter");
