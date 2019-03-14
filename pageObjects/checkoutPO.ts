@@ -12,9 +12,14 @@ export class Checkout extends BasePO {
         return countOfGoods;
     }
 
-    removeGoods(): void {
-       let deleteIcon =  $("button[name='remove_cart_item']");
-       deleteIcon.waitForDisplayed(4000);
+    removeGood(indx): void {
+        let deleteButtons = $$("button[name='remove_cart_item']")
+        if (deleteButtons.length -1 < indx) {
+            throw new Error('Provided index more than number of goods in cart')
+        }
+
+       let deleteIcon =  $$("button[name='remove_cart_item']")[indx];
+       deleteIcon.waitForDisplayed(4000, undefined, `Cannot remove item number ${indx} because it is not visible`);
        deleteIcon.click();
     }
 

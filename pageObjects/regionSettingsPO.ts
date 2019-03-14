@@ -20,4 +20,4 @@ open() {
     super.open("/regional_settings");
   }
 }
-export const settingsPO = new SettingsPO();
+export const Settings = new SettingsPO();

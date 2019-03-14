@@ -16,6 +16,7 @@ exports.config = {
     ui: "bdd",
     timeout: 120000
   },
+  waitforTimeout: 10000,
   reporters: ['spec'],
   before: function(capabilities, specs) {
     process.env.TS_NODE_FILES = true;
